@@ -1104,7 +1104,7 @@ char *text[] = {
 };
 
 #define delay_from_spaces(X) (X / 3)
-#define MIN  2
+#define MIN  5
 
 int stop_being_a_cunt = 0;
 int current_line = 0;
