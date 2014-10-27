@@ -5,3 +5,4 @@ lear: lear.c
 
 install:
 	install -Dm 755 lear /usr/local/bin/lear
+	cp learlines /lib/lear
