@@ -1,0 +1,21 @@
+#!/bin/bash
+
+FILE=$HOME/.learlines
+
+if [ ! -r $FILE ]
+then
+    echo "Verily, thou art a cunt with a corruption of cock." >&2
+    exit 1
+fi
+
+MAX=$(wc -l < $FILE)
+
+if [ "$MAX" -eq 0 ]
+then
+    echo "Verily, though art a cunt with a want of cock." >&2
+    exit 1
+fi
+
+let "num = ($RANDOM % $MAX) + 1"
+
+sed -n "${num}p" $FILE
