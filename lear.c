@@ -1,3 +1,20 @@
+/*
+ *          DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+ *                    Version 2, December 2004
+ *
+ * Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+ *
+ * Everyone is permitted to copy and distribute verbatim or modified
+ * copies of this license document, and changing it is allowed as long
+ * as the name is changed.
+ *
+ *            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+ * TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+ *
+ * 0. You just DO WHAT THE FUCK YOU WANT TO.
+ * 
+ */
+
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
@@ -48,13 +65,8 @@ void format(char line[LEN]) {
 void sigintHandler(int sig_num) {
     if (delayed_for >= MIN_TIME)
         stop_being_a_cunt = 1;
-    else {
+    else
         reset = 1;
-        
-        system("/usr/bin/clear");
-        printf("Do you not appreciate this? Have another read. At least read for another %i seconds.\n", MIN_TIME - delayed_for);
-        sleep(3);
-    }
 }
 
 int main() {
@@ -67,16 +79,19 @@ int main() {
 
     while (!stop_being_a_cunt && fgets(line, sizeof(line), lear) != NULL) {
         if (reset) {
-            fseek(lear, 0, SEEK_SET);
             system("/usr/bin/clear");
+            printf("Do you not appreciate this? Have another read. At least read for another %i seconds.\n", MIN_TIME - delayed_for);
+            sleep(3);
+            system("/usr/bin/clear");
+            
+            fseek(lear, 0, SEEK_SET);
             reset = 0;
-            continue;
+        } else {
+            format(line);
+            printf("%s\n", line);
+            delay = delay_from_spaces(spaces(line));
+            sleep(delay);
+            delayed_for += delay;
         }
-
-        format(line);
-        printf("%s\n", line);
-        delay = delay_from_spaces(spaces(line));
-        sleep(delay);
-        delayed_for += delay;
     }
 }
