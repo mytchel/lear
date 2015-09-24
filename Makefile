@@ -1,8 +1,21 @@
+PREFIX?=/usr/local
+BINDIR?=${PREFIX}/bin
+LIBDIR?=${PREFIX}/lib
+
+CC?=gcc
+
 all: lear
 
 lear: lear.c
-	gcc lear.c -o lear
+	${CC} -o lear -DLEARPATH=\"${LIBDIR}/lear\" lear.c
 
-install:
-	install -Dm 755 lear /usr/local/bin/lear
-	cp learlines /lib/lear
+clean:
+	rm lear
+
+install: lear
+	install -Dm 755 lear ${DESTDIR}${BINDIR}/lear
+	install learlines ${DESTDIR}${LIBDIR}/lear
+
+uninstall:
+	rm ${DESTDIR}${BINDIR}/lear
+	rm ${DESTDIR}${LIBDIR}/lear
